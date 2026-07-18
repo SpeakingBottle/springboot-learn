@@ -19,3 +19,7 @@ dist/
 # ====== OS ======
 Thumbs.db
 .DS_Store
+
+# ====== 测试临时产物 ======
+.playwright-mcp/
+login-page.png
