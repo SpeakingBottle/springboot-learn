@@ -94,11 +94,13 @@ onMounted(async () => {
     if (authStore.role === 'STUDENT') {
       const res = await getAllLeaves()
       const data: LeaveRequest[] = res.data.data
-      stats.value.pending = data.filter(l => l.status === 'PENDING').length
-      stats.value.approved = data.filter(l =>
+      // 后端接口返回全部请假单，前端按当前登录学生过滤，只统计本人的申请
+      const myLeaves = data.filter(l => l.studentId === authStore.user?.id)
+      stats.value.pending = myLeaves.filter(l => l.status === 'PENDING').length
+      stats.value.approved = myLeaves.filter(l =>
         l.status === 'DEAN_APPROVED' || l.status === 'TEACHER_APPROVED'
       ).length
-      stats.value.rejected = data.filter(l =>
+      stats.value.rejected = myLeaves.filter(l =>
         l.status === 'TEACHER_REJECTED' || l.status === 'DEAN_REJECTED'
       ).length
     } else {
