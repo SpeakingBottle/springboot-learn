@@ -1,0 +1,17 @@
+# ====== IDE ======
+.idea/
+*.iml
+.vscode/
+.project
+.classpath
+.settings/
+
+# ====== Maven ======
+target/
+
+# ====== Redis ======
+dump.rdb
+
+# ====== OS ======
+Thumbs.db
+.DS_Store
