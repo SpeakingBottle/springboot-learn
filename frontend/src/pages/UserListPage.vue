@@ -180,11 +180,11 @@ async function handleSave() {
   submitting.value = true
   try {
     if (editingUser.value) {
-      const payload: any = {
+      const payload: Partial<User> = {
         username: formData.username,
         realName: formData.realName,
-        role: formData.role,
-        phone: formData.phone,
+        role: formData.role as User['role'],
+        phone: formData.phone || undefined,  // 空串视为 null，避免持久化空字符串
       }
       if (formData.password) {
         payload.password = formData.password

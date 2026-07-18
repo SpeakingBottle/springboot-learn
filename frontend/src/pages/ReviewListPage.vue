@@ -113,6 +113,8 @@ async function handleReviewSubmit(comment: string, _approved: boolean) {
     // 错误已在拦截器处理
   } finally {
     loading.value = false
+    // 重置弹窗按钮 loading 态
+    dialogRef.value!.loading = false
   }
 }
 

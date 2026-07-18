@@ -31,17 +31,20 @@ request.interceptors.response.use(
       return response
     }
     // 401 未登录 → 清除 token 并跳转登录页
+    // 注意：window.location.href 会触发整页重新加载，Pinia store 将重新初始化
+    // 并从（已清空的）localStorage 读取 token，因此无需额外清理 store 状态
     if (res.code === 401) {
       localStorage.removeItem('token')
       window.location.href = '/login'
       return Promise.reject(new Error(res.msg || '未登录'))
     }
-    // 其他错误 → 弹提示
+    // 其他业务错误 → 弹提示
     ElMessage.error(res.msg || '请求失败')
     return Promise.reject(new Error(res.msg || '请求失败'))
   },
   (error) => {
-    // HTTP 错误（网络异常、500 等）
+    // HTTP 401（token 过期等场景）
+    // 同样依赖整页重新加载来重置 store 状态
     if (error.response?.status === 401) {
       localStorage.removeItem('token')
       window.location.href = '/login'

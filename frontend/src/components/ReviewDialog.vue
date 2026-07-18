@@ -104,6 +104,8 @@ async function handleReview(approved: boolean) {
     return
   }
 
+  loading.value = true
+
   // 后端通过关键词判断：含"驳回"/"不同意" → 驳回，否则 → 通过
   // 前端显式传 approved=false 时加"驳回："前缀
   const comment = approved
