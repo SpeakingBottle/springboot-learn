@@ -101,3 +101,11 @@ export interface LoginResult {
   username: string
   role: string
 }
+
+// ========== 扩展 Vue Router 的 RouteMeta ==========
+declare module 'vue-router' {
+  interface RouteMeta {
+    requiresAuth?: boolean
+    roles?: string[]
+  }
+}
