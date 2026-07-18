@@ -100,10 +100,13 @@ const formData = reactive({
 
 // 校验规则
 const loginRules: FormRules = {
-  username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+  username: [
+    { required: true, message: '请输入用户名', trigger: 'blur' },
+    { min: 3, max: 50, message: '用户名长度为 3-50 个字符', trigger: 'blur' },
+  ],
   password: [
     { required: true, message: '请输入密码', trigger: 'blur' },
-    { min: 6, message: '密码长度不低于 6 位', trigger: 'blur' },
+    { min: 6, max: 100, message: '密码长度为 6-100 个字符', trigger: 'blur' },
   ],
 }
 
